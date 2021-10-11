@@ -8,7 +8,8 @@ public class MenuUI : MonoBehaviour
     Button joinButton;
     Button hostButton;
     Button quitButton;
-    
+
+    public InputField playerNameField;
 
     void Start()
     {
@@ -27,6 +28,8 @@ public class MenuUI : MonoBehaviour
                 quitButton = gameObject.GetComponentInChildren<Button>();
             }
         }
+
+        playerNameField = GetComponentInChildren<InputField>();
     }
 
     public void JoinServer()
@@ -37,6 +40,20 @@ public class MenuUI : MonoBehaviour
     public void HostServer()
     {
         NetworkingManger.instance.StartServer();
+    }
+
+    public void ApplyPlayerName(string nameInput)
+    {
+
+        if (playerNameField.text == string.Empty)
+        {
+            Debug.LogWarning("No player name");
+        }
+        else
+        {
+            Debug.LogWarning("Has Player name");
+            NetworkingManger.instance.PassOnPlayerData(playerNameField.text);
+        }
     }
 
     public void Quit()

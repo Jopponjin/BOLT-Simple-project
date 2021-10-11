@@ -10,14 +10,10 @@ public class CoreGameState : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this);
+        instance = this;
+
         if (instance != null) Destroy(gameObject);
         else instance = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ChangeLevel()
@@ -25,7 +21,7 @@ public class CoreGameState : MonoBehaviour
         if (GameData.instance.currentScene.name == "Level1")
         {
             //Load Menu scene
-            SceneManager.LoadSceneAsync(SceneManager.GetSceneByName("Menu").buildIndex);
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
     }
 

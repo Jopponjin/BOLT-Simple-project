@@ -7,7 +7,7 @@ using Photon.Bolt;
 public class PauseMenuUI : EntityBehaviour<ICustomPlayer>
 {
     GameObject pauseMenu;
-
+    
     Button continueButton;
     Button quitButton;
 
@@ -31,6 +31,8 @@ public class PauseMenuUI : EntityBehaviour<ICustomPlayer>
                 quitButton = gameObject.GetComponentInChildren<Button>();
             }
         }
+
+        
     }
 
     private void Update()

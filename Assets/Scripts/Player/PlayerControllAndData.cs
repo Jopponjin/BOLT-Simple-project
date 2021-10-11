@@ -12,6 +12,7 @@ public class PlayerControllAndData : EntityBehaviour<ICustomPlayer>
     float moveZ;
     public float movementSpeed = 2f;
     public int localHealth = 100;
+    public string playerUsername;
 
     public override void Attached()
     {

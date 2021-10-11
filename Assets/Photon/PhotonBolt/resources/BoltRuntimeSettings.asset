@@ -31,7 +31,7 @@ MonoBehaviour:
     serverDejitterDelayMin: 3
     serverDejitterDelayMax: 9
     serverConnectionLimit: 64
-    serverConnectionAcceptMode: 0
+    serverConnectionAcceptMode: 1
     commandQueueSize: 60
     commandRedundancy: 6
     commandPingMultiplier: 1.25
@@ -51,11 +51,11 @@ MonoBehaviour:
   debugBuildMode: 1
   debugStartMapName: 
   debugPlayAsServer: 0
-  showDebugInfo: 0
+  showDebugInfo: 1
   overrideTimeScale: 1
   debugEditorMode: 1
   consoleToggleKey: 9
-  consoleVisibleByDefault: 0
+  consoleVisibleByDefault: 1
   compilationWarnLevel: 4
   editorSkin: 4
   scopeModeHideWarningInGui: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   serializeProjectAsText: 0
   photonAppId: a597dc45-36e1-41cf-990c-df0f144cc547
   photonUsePunch: 1
-  photonCloudRegionIndex: 0
+  photonCloudRegionIndex: 5
   instantiateMode: 0
   globalEntityBehaviourQueryOption: 3
   globalEntityPriorityCalculatorQueryOption: 3
