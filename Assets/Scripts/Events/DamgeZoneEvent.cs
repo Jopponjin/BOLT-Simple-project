@@ -4,21 +4,22 @@ using UnityEngine;
 using Photon.Bolt;
 
 
-public class DamgeZoneEvent : EntityEventListener<ICustomPlayer>
+public class DamgeZoneEvent : GlobalEventListener
 {
     public int zoneDamgeAmount = 10;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.GetComponent<BoltEntity>().IsOwner)
         {
-            var damgeEvent = DamgeEvent.Create();
-            damgeEvent.PlayerId = other.GetComponent<BoltEntity>().PrefabId;
-            damgeEvent.NetworkId = other.GetComponent<BoltEntity>().NetworkId;
-            damgeEvent.eventDamgeValue = zoneDamgeAmount;
-            damgeEvent.Send();
+            //DamgeEvent damgeEvent = DamgeEvent.Create(GlobalTargets.OnlyServer, ReliabilityModes.ReliableOrdered);
+            //damgeEvent.PlayerId = other.GetComponent<BoltEntity>().PrefabId;
+            //damgeEvent.NetworkId = other.GetComponent<BoltEntity>().NetworkId;
+            //damgeEvent.eventDamgeValue = zoneDamgeAmount;
+            //damgeEvent.Send();
 
-            //other.gameObject.GetComponent<PlayerControllAndData>().ApplyDamge(zoneDamgeAmount);
+            other.GetComponent<PlayerControllAndData>().ApplyDamge(zoneDamgeAmount);
+            
         }
     }
 }

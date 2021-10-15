@@ -4607,31 +4607,6 @@
     },
     {
       "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
-      "Properties": [
-        {
-          "Name": "Message",
-          "Enabled": true,
-          "Expanded": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Photon.Bolt.Compiler.PropertyTypeString, bolt.compiler",
-            "MaxLength": 1
-          },
-          "AssetSettings": {
-            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        }
-      ],
-      "EntitySenders": 3,
-      "Name": "SpawnCubesEvent",
-      "Guid": "3664fd89-e5bc-4710-97d5-caba4f16fb5e",
-      "Groups": [
-        "samples"
-      ]
-    },
-    {
-      "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [],
       "EntitySenders": 3,
       "Name": "ServerStarted",
@@ -4891,6 +4866,254 @@
       ],
       "Name": "PlayerPrefabMade",
       "Guid": "270d43d7-2518-483f-b0bd-50cf89356d39",
+      "Groups": [
+        "samples"
+      ]
+    },
+    {
+      "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "NetworkId",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeNetworkId, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "PrefabId",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypePrefabId, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "EntityCaller",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "CurrentTriggerState",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "SpawnAmount",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "EntitySenders": 3,
+      "Name": "SpawnEnemy",
+      "Guid": "309f6989-ec08-4b20-bb3e-9fccf8ea9911",
+      "Groups": [
+        "samples"
+      ]
+    },
+    {
+      "$type": "Photon.Bolt.Compiler.StateDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "Damge",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 3,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "SnapMagnitude": 10.0
+          }
+        }
+      ],
+      "PacketMaxBits": 512,
+      "PacketMaxProperties": 16,
+      "InitialPositionCompression": {
+        "Compression": [
+          {
+            "MinValue": -1024,
+            "MaxValue": 1024,
+            "Accuracy": 0.01,
+            "Pack": 100.0,
+            "Read": 0.01,
+            "Shift": 1024.0,
+            "BitsRequired": 18
+          },
+          {
+            "MinValue": -1024,
+            "MaxValue": 1024,
+            "Accuracy": 0.01,
+            "Pack": 100.0,
+            "Read": 0.01,
+            "Shift": 1024.0,
+            "BitsRequired": 18
+          },
+          {
+            "MinValue": -1024,
+            "MaxValue": 1024,
+            "Accuracy": 0.01,
+            "Pack": 100.0,
+            "Read": 0.01,
+            "Shift": 1024.0,
+            "BitsRequired": 18
+          }
+        ]
+      },
+      "InitialRotationCompression": {
+        "EulerCompression": [
+          {
+            "MaxValue": 360,
+            "Accuracy": 1.0,
+            "Pack": 1.0,
+            "Read": 1.0,
+            "BitsRequired": 9
+          },
+          {
+            "MaxValue": 360,
+            "Accuracy": 1.0,
+            "Pack": 1.0,
+            "Read": 1.0,
+            "BitsRequired": 9
+          },
+          {
+            "MaxValue": 360,
+            "Accuracy": 1.0,
+            "Pack": 1.0,
+            "Read": 1.0,
+            "BitsRequired": 9
+          }
+        ],
+        "QuaternionCompression": {
+          "MinValue": -1,
+          "MaxValue": 1,
+          "Accuracy": 0.01,
+          "Pack": 100.0,
+          "Read": 0.01,
+          "Shift": 1.0,
+          "BitsRequired": 8
+        }
+      },
+      "Name": "ZoneDamge",
+      "Guid": "3cfc033d-393a-4f8b-bc16-3e972f7f3bcd",
+      "Groups": [
+        "samples"
+      ]
+    },
+    {
+      "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "disabledTriggerObject",
+          "Enabled": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeQuaternion, bolt.compiler",
+            "Selection": 14,
+            "EulerCompression": [
+              {
+                "MaxValue": 360,
+                "Accuracy": 1.0,
+                "Pack": 1.0,
+                "Read": 1.0,
+                "BitsRequired": 9
+              },
+              {
+                "MaxValue": 360,
+                "Accuracy": 1.0,
+                "Pack": 1.0,
+                "Read": 1.0,
+                "BitsRequired": 9
+              },
+              {
+                "MaxValue": 360,
+                "Accuracy": 1.0,
+                "Pack": 1.0,
+                "Read": 1.0,
+                "BitsRequired": 9
+              }
+            ],
+            "QuaternionCompression": {
+              "MinValue": -1,
+              "MaxValue": 1,
+              "Accuracy": 0.01,
+              "Pack": 100.0,
+              "Read": 0.01,
+              "Shift": 1.0,
+              "BitsRequired": 8
+            }
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "gameObjectToken",
+          "Enabled": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeProtocolToken, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "DisableSpawnsEvent",
+      "Guid": "2f655763-bce9-4fd2-a8c6-a81613d5d6d6",
+      "Groups": [
+        "samples"
+      ]
+    },
+    {
+      "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "Name": "CallbackDisableTrigger",
+      "Guid": "f38623b7-8c81-4012-b556-14fda2c52550",
       "Groups": [
         "samples"
       ]

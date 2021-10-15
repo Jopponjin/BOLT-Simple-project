@@ -52,7 +52,7 @@ public class MenuUI : MonoBehaviour
         else
         {
             Debug.LogWarning("Has Player name");
-            NetworkingManger.instance.PassOnPlayerData(playerNameField.text);
+            
         }
     }
 

@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class ProjectileShoot : MonoBehaviour
 {
+    public LineRenderer lineRenderer;
     public float startVelocity;
-    public Vector3 startPosition;
     public Vector3 currentPosition;
+
+    
+    Vector3[] curverPoints;
+
+    float angle;
+    public float velocity;
+    public float rads;
+    public int resolution = 5;
+
+    private void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+    }
 
     Transform BallisticVeloctiy(Vector3 from, Vector3 to, float gravity = 9.8f, float heightOff = 0.0f, float rangeOff = 0.11f)
     {
@@ -56,14 +69,52 @@ public class ProjectileShoot : MonoBehaviour
         return null;
     }
 
+    private void Update()
+    {
+        DrawTrajectory();
+    }
+
     private void DrawTrajectory()
     {
-        var curverPoints = new Vector3[0];
-        curverPoints[0] = startPosition;
+        if (Input.GetMouseButton(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        var currentPosition = startPosition;
-        var currentVelocity = startVelocity;
+            if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.GetMask("Ground")))
+            {
+                angle = -gameObject.transform.rotation.eulerAngles.x;
+                lineRenderer.positionCount = resolution + 1;
+                lineRenderer.SetPositions(CalculateArcPoints());
+            }
+        }
+        
 
+    }
 
+    Vector3 CalculatePoint(float t, float maxDist)
+    {
+        float x = t * maxDist;
+        float y = x * Mathf.Tan(rads) - ((Physics.gravity.y * x * x) / (2 * Mathf.Pow(velocity * Mathf.Cos(rads), 2)));
+        float z = 0f;
+
+        return new Vector3(z, y, x);
+    }
+
+    Vector3[] CalculateArcPoints()
+    {
+        Vector3[] arcPoints = new Vector3[resolution + 1];
+
+        rads = Mathf.Deg2Rad * angle;
+
+        float maxDistance = ((velocity * Mathf.Cos(rads)) / Physics.gravity.y) * (velocity * Mathf.Sin(rads) + Mathf.Sqrt(Mathf.Pow(velocity * Mathf.Sin(rads), 2) + 2 * Physics.gravity.y * gameObject.transform.parent.position.y));
+
+        for (int i = 0; i <= resolution; i++)
+        {
+            float t = (float)i / (float)resolution;
+            arcPoints[i] = CalculatePoint(t, maxDistance);
+        }
+
+        return arcPoints;
     }
 }

@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Bolt;
 
-public class PlayerControllAndData : EntityBehaviour<ICustomPlayer>
+public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
 {
     public CharacterController characterController;
+
+    public BoltEntity character;
+    public BoltConnection connection;
+
+    public bool IsServer
+    {
+        get { return connection == null; }
+    }
+    public bool IsClient
+    {
+        get { return connection != null; }
+    }
 
     Vector3 moveDirection;
     float moveX;
     float moveZ;
+
     public float movementSpeed = 2f;
     public int localHealth = 100;
     public string playerUsername;
@@ -18,14 +31,13 @@ public class PlayerControllAndData : EntityBehaviour<ICustomPlayer>
     {
         state.SetTransforms(state.Transform, gameObject.transform);
 
-        if (entity.IsOwner)
+        if (GetComponent<BoltEntity>().IsOwner)
         {
             state.Color = new Color(Random.value, Random.value, Random.value);
             state.Health = localHealth;
         }
 
         state.AddCallback("Color", ColorChanged);
-        state.AddCallback("Health", HealthCallback);
 
         characterController = GetComponent<CharacterController>();
     }
@@ -46,13 +58,13 @@ public class PlayerControllAndData : EntityBehaviour<ICustomPlayer>
 
     public void ApplyDamge(int damgeValue)
     {
-        Debug.Log("ApplyDamge called: damge = " +damgeValue);
-        state.Health -= damgeValue;
+        Debug.Log("ApplyDamge called: damge = " + damgeValue);
+        if (gameObject.GetComponent<BoltEntity>().IsOwner)
+        {
+            localHealth -= damgeValue;
+        }
+        
     }
 
-    void HealthCallback()
-    {
-        Debug.Log("HealthCallback called!");
-        localHealth = state.Health;
-    }
+    
 }

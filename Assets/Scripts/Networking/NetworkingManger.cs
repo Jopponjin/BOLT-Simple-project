@@ -32,12 +32,21 @@ public class NetworkingManger : GlobalEventListener
 
         DontDestroyOnLoad(this);
         instance = this;
-        
     }
 
     public override void BoltStartBegin()
     {
-        BoltNetwork.RegisterTokenClass<UserToken>();
+        
+    }
+
+    public override void BoltStartDone()
+    {
+        if (BoltNetwork.IsServer)
+        {
+            string matchName = "Test Server";
+
+            BoltMatchmaking.CreateSession(sessionID: matchName, null, sceneToLoad: "Level1");
+        }
     }
 
     public void JoinServer()
@@ -92,13 +101,6 @@ public class NetworkingManger : GlobalEventListener
         }
     }
 
-    public void PassOnPlayerData(string playerName)
-    {
-        BoltLog.Warn("PassOnPlayerData CALLED! player name: " + playerName);
-
-        localPlayerName = playerName;
-    }
-
     public override void Connected(BoltConnection connection)
     {
         if (BoltNetwork.IsServer)
@@ -113,45 +115,12 @@ public class NetworkingManger : GlobalEventListener
 
     public override void ConnectRequest(UdpEndPoint endpoint, IProtocolToken userToken)
     {
-        UserToken userInfoToken = new UserToken();
-        clientPlayerName =  userInfoToken.playerUsername.ToString();
 
-        BoltNetwork.Accept(endpoint, userInfoToken);
-        
-
-        if (userInfoToken.playerUsername != string.Empty)
-        {
-            BoltLog.Warn("infoToken is NOT false!");
-            Debug.LogWarning("infoToken is NOT false!");
-
-            //Debug.LogWarning("infoToken username: " + userInfoToken.playerUsername);
-            //BoltLog.Warn("infoToken username: " + userInfoToken.playerUsername);
-            BoltLog.Warn("infoToken username: " + clientPlayerName);
-
-            return;
-        }
-        else
-        {
-            Debug.LogWarning("infoToken IS false!");
-            BoltLog.Warn("infoToken IS false!");
-            
-            BoltNetwork.Refuse(endpoint, userInfoToken);
-        }
+        BoltNetwork.Accept(endpoint, null);
 
     }
 
-    public override void BoltStartDone()
-    {
-        if (BoltNetwork.IsServer)
-        {
-            string matchName = "Test Server";
-
-            UserToken userInfoToken = new UserToken();
-
-            BoltMatchmaking.CreateSession(sessionID: matchName, userInfoToken, sceneToLoad: "Level1");
-        }
-    }
-
+   
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         GameData.instance.currentScene = SceneManager.GetSceneByName(scene);
@@ -176,11 +145,8 @@ public class NetworkingManger : GlobalEventListener
 
     void JoinServer(UdpSession photonSession)
     {
-        UserToken userToken = new UserToken();
 
-        userToken.playerUsername = localPlayerName.ToString();
-
-        BoltMatchmaking.JoinSession(photonSession, userToken);
+        BoltMatchmaking.JoinSession(photonSession, null);
     }
 
     public override void Disconnected(BoltConnection connection)
@@ -192,12 +158,8 @@ public class NetworkingManger : GlobalEventListener
         }
     }
 
-    public override void OnEvent(PlayerPrefabMade evnt)
+    public void DisablePlayerComponent()
     {
-        if (connectionList.ContainsKey(evnt.RaisedBy))
-        {
 
-        }
     }
-
 }
