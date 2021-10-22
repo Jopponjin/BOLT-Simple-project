@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Bolt;
+using Photon.Bolt.Utils;
 
 public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
 {
@@ -51,19 +52,23 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         gameObject.transform.position = moveDirection * movementSpeed;
     }
 
+    /// --------------------------------------------- Player Modfiers ----------------------------------- ///
+   
+
     void ColorChanged()
     {
         GetComponent<Renderer>().material.color = state.Color;
     }
 
+
     public void ApplyDamge(int damgeValue)
     {
-        Debug.Log("ApplyDamge called: damge = " + damgeValue);
+        BoltLog.Warn("ApplyDamge called: damge = " + damgeValue);
         if (gameObject.GetComponent<BoltEntity>().IsOwner)
         {
-            localHealth -= damgeValue;
-        }
-        
+            state.Health -= damgeValue;
+            localHealth = state.Health;
+        }   
     }
 
     
