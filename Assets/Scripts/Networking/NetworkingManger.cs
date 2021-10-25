@@ -8,6 +8,7 @@ using UdpKit;
 using System;
 using Photon.Realtime;
 using Photon.Bolt.Utils;
+
 /*
 NOTE:   This is a local network manger its controlls hosting, joing and some miscellaneous data.
 */
@@ -23,11 +24,8 @@ public class NetworkingManger : GlobalEventListener
     public string localPlayerName;
     public string clientPlayerName;
 
-    public GameObject[] latestChangeObjects = new GameObject[0];
-
     private void Awake()
     {
-
         if (instance != null)
         {
             return;
@@ -36,14 +34,6 @@ public class NetworkingManger : GlobalEventListener
 
         DontDestroyOnLoad(this);
         instance = this;
-    }
-
-    private void Start()
-    {
-        if (latestChangeObjects.Length == 0)
-        {
-            latestChangeObjects = new GameObject[SceneManager.GetActiveScene().rootCount];
-        }
     }
 
     public override void BoltStartDone()
@@ -131,8 +121,6 @@ public class NetworkingManger : GlobalEventListener
     public override void SceneLoadLocalDone(string scene, IProtocolToken token)
     {
         GameData.instance.currentScene = SceneManager.GetSceneByName(scene);
-
-
     }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)

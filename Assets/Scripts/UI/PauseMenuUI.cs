@@ -47,7 +47,7 @@ public class PauseMenuUI : EntityBehaviour<ICustomPlayer>
         }
     }
 
-    void TogglePauseMenu(bool pasueMenuState)
+    public void TogglePauseMenu(bool pasueMenuState)
     {
         if (pasueMenuState)
         {
@@ -68,11 +68,6 @@ public class PauseMenuUI : EntityBehaviour<ICustomPlayer>
     public void SpawnPlayer()
     {
         NetworkingManger.instance.BoltSpawnPlayer();
-    }
-
-    public void ContinueGame()
-    {
-
     }
 
     public void QuitGame()

@@ -155,6 +155,7 @@ MonoBehaviour:
   menuUI: {fileID: 266928932}
   localPlayerName: 
   clientPlayerName: Player
+  latestChangeObjects: []
 --- !u!4 &63140822
 Transform:
   m_ObjectHideFlags: 0

@@ -63,12 +63,34 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
 
     public void ApplyDamge(int damgeValue)
     {
-        BoltLog.Warn("ApplyDamge called: damge = " + damgeValue);
-        if (gameObject.GetComponent<BoltEntity>().IsOwner)
+        BoltLog.Warn("ApplyDamge called: damge - = " + damgeValue);
+        if (gameObject.GetComponent<BoltEntity>().IsOwner && state.Health > 0)
         {
             state.Health -= damgeValue;
             localHealth = state.Health;
         }   
+    }
+
+    public void ApplyHealth(int healthValue)
+    {
+        BoltLog.Warn("ApplyHealth called: health + = " + healthValue);
+        if (gameObject.GetComponent<BoltEntity>().IsOwner)
+        {
+            if (state.Health <= 100)
+            {
+                if (state.Health + healthValue > 100)
+                {
+                    BoltLog.Warn("ApplyHealth called: Given health would be greater than max, diffrance given :" + healthValue);
+                    state.Health += (100 - state.Health);
+                    localHealth = state.Health;
+                }
+                else
+                {
+                    state.Health += healthValue;
+                    localHealth = state.Health;
+                }
+            }
+        }
     }
 
     

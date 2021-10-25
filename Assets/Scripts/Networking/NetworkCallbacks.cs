@@ -52,6 +52,15 @@ public class NetworkCallbacks : GlobalEventListener
         AddEventChangeToList(evnt);
     }
 
+    public override void OnEvent(RemoveHealthPickup evnt)
+    {
+        AddEventChangeToList(evnt);
+    }
+
+    public override void OnEvent(HealthPickupEvent evnt)
+    {
+        RemoveHealthPickup.Post();
+    }
 
     /// ------------------------------------------- Syncronized Event&Scene changes ------------------------------------------ ///
 
@@ -72,9 +81,9 @@ public class NetworkCallbacks : GlobalEventListener
                     BoltLog.Warn(gameEvent + " was detected!");
                 }
                 //If there is more event cases that need to be synced include them in the same manner sa previous if cases.
-                else if (true)
+                else if (gameEvent == RemoveHealthPickup.Create())
                 {
-
+                    gameEvent.Send();
                 }
             }
         }
