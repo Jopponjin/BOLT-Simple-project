@@ -45,6 +45,9 @@ public class NetworkCallbacks : GlobalEventListener
     {
         BoltLog.Warn("DamgeEvent EVENT called!");
 
+        var applyDamgeEvent = ApplyDamgeEvent.Create(evnt.DamgedEntity);
+        applyDamgeEvent.Damge = evnt.DamgeValue;
+        applyDamgeEvent.Send();
     }
     
     public override void OnEvent(DisableSpawnsEvent evnt)

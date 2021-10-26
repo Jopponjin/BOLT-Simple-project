@@ -12,8 +12,7 @@ public class DamgeZoneEvent : EntityBehaviour<ICustomPlayer>
     {
         if (other.gameObject.CompareTag("Player") && other.GetComponent<BoltEntity>().IsOwner)
         {
-            other.gameObject.GetComponent<PlayerControllAndData>().ApplyDamge(zoneDamgeAmount);
-            
+            other.gameObject.GetComponent<PlayerControllAndData>().ApplySceneLocalDamge(zoneDamgeAmount);
         }
     }
 }

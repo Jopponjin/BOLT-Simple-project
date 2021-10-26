@@ -52,8 +52,17 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         gameObject.transform.position = moveDirection * movementSpeed;
     }
 
+    /// --------------------------------------------- Events --------------------------------------------- ///
+
+
+    public override void OnEvent(ApplyDamgeEvent evnt)
+    {
+        BoltLog.Warn("ApplyDamgeEvent EVENT called!");
+        ApplyNetworkedDamge(evnt.Damge);
+    }
+
     /// --------------------------------------------- Player Modfiers ----------------------------------- ///
-   
+
 
     void ColorChanged()
     {
@@ -61,7 +70,20 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
     }
 
 
-    public void ApplyDamge(int damgeValue)
+    public void ApplyNetworkedDamge(int damgeValue)
+    {
+        BoltLog.Warn("ApplyDamge called: damge - = " + damgeValue);
+
+        if (state.Health > 0 && gameObject.GetComponent<BoltEntity>().IsOwner)
+        {
+            state.Health -= damgeValue;
+            localHealth = state.Health;
+        }
+    }
+
+    /// --------------------------------------- Scene Local -------------------------------------------- ///
+
+    public void ApplySceneLocalDamge(int damgeValue)
     {
         BoltLog.Warn("ApplyDamge called: damge - = " + damgeValue);
         if (gameObject.GetComponent<BoltEntity>().IsOwner && state.Health > 0)
@@ -71,7 +93,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         }   
     }
 
-    public void ApplyHealth(int healthValue)
+    public void ApplySceneLocalHealth(int healthValue)
     {
         BoltLog.Warn("ApplyHealth called: health + = " + healthValue);
         if (gameObject.GetComponent<BoltEntity>().IsOwner)

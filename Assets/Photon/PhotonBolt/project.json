@@ -4776,33 +4776,7 @@
       "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [
         {
-          "Name": "PlayerId",
-          "Enabled": true,
-          "Expanded": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Photon.Bolt.Compiler.PropertyTypePrefabId, bolt.compiler"
-          },
-          "AssetSettings": {
-            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        },
-        {
-          "Name": "NetworkId",
-          "Enabled": true,
-          "Expanded": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Photon.Bolt.Compiler.PropertyTypeNetworkId, bolt.compiler"
-          },
-          "AssetSettings": {
-            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        },
-        {
-          "Name": "ControllerConnectionId",
+          "Name": "DamgeValue",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
@@ -4816,36 +4790,13 @@
           }
         },
         {
-          "Name": "eventDamgeValue",
+          "Name": "DamgedEntity",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
-            "$type": "Photon.Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
-            "MaxValue": 255
-          },
-          "AssetSettings": {
-            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        },
-        {
-          "Name": "NewProperty",
-          "Enabled": true,
-          "Expanded": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Photon.Bolt.Compiler.PropertyTypeFloat, bolt.compiler",
-            "Compression": {
-              "MinValue": -2048,
-              "MaxValue": 2048,
-              "Accuracy": 0.01,
-              "Pack": 100.0,
-              "Read": 0.01,
-              "Shift": 2048.0,
-              "BitsRequired": 19
-            }
+            "$type": "Photon.Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
           },
           "AssetSettings": {
             "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
@@ -5341,6 +5292,29 @@
       "Properties": [],
       "Name": "RemoveHealthPickup",
       "Guid": "add54eb8-fadb-4bc9-961e-d578f061a0e6",
+      "Groups": []
+    },
+    {
+      "$type": "Photon.Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "Damge",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Photon.Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Photon.Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "GlobalSenders": 1,
+      "Name": "ApplyDamgeEvent",
+      "Guid": "280eedbc-4fb9-4af0-afd3-08755a78c90d",
       "Groups": []
     }
   ],

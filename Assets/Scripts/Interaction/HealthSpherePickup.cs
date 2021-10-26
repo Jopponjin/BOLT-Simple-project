@@ -14,7 +14,7 @@ public class HealthSpherePickup : GlobalEventListener
     {
         if (other.GetComponent<BoltEntity>().IsOwner && other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerControllAndData>().ApplyHealth(healthPickupAmount);
+            other.GetComponent<PlayerControllAndData>().ApplySceneLocalHealth(healthPickupAmount);
 
             var removeHealthPickup = RemoveHealthPickup.Create();
             removeHealthPickup.Send();
