@@ -10,15 +10,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
 
     public BoltEntity character;
     public BoltConnection connection;
-
-    public bool IsServer
-    {
-        get { return connection == null; }
-    }
-    public bool IsClient
-    {
-        get { return connection != null; }
-    }
+    
 
     Vector3 moveDirection;
     float moveX;
@@ -28,6 +20,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
     public int localHealth = 100;
     public string playerUsername;
 
+    //Here we just attach callback to values that need to be synced across the server/bolt network.
     public override void Attached()
     {
         state.SetTransforms(state.Transform, gameObject.transform);
@@ -43,6 +36,8 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         characterController = GetComponent<CharacterController>();
     }
 
+    // Controlls put here in order to simlefie input controll on the entitys that are controlled,
+    // there might be ways to input controll with out useing bolts own update function if thats needed.
     public override void SimulateController()
     {
         moveX = Input.GetAxisRaw("Horizontal");
@@ -58,7 +53,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
     public override void OnEvent(ApplyDamgeEvent evnt)
     {
         BoltLog.Warn("ApplyDamgeEvent EVENT called!");
-        ApplyNetworkedDamge(evnt.Damge);
+        ApplyDamge(evnt.Damge);
     }
 
     /// --------------------------------------------- Player Modfiers ----------------------------------- ///
@@ -69,21 +64,9 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         GetComponent<Renderer>().material.color = state.Color;
     }
 
-
-    public void ApplyNetworkedDamge(int damgeValue)
-    {
-        BoltLog.Warn("ApplyDamge called: damge - = " + damgeValue);
-
-        if (state.Health > 0 && gameObject.GetComponent<BoltEntity>().IsOwner)
-        {
-            state.Health -= damgeValue;
-            localHealth = state.Health;
-        }
-    }
-
     /// --------------------------------------- Scene Local -------------------------------------------- ///
 
-    public void ApplySceneLocalDamge(int damgeValue)
+    public void ApplyDamge(int damgeValue)
     {
         BoltLog.Warn("ApplyDamge called: damge - = " + damgeValue);
         if (gameObject.GetComponent<BoltEntity>().IsOwner && state.Health > 0)
@@ -93,7 +76,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         }   
     }
 
-    public void ApplySceneLocalHealth(int healthValue)
+    public void ApplyHealth(int healthValue)
     {
         BoltLog.Warn("ApplyHealth called: health + = " + healthValue);
         if (gameObject.GetComponent<BoltEntity>().IsOwner)

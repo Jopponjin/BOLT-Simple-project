@@ -65,7 +65,7 @@ public class NetworkCallbacks : GlobalEventListener
         RemoveHealthPickup.Post();
     }
 
-    /// ------------------------------------------- Syncronized Event&Scene changes ------------------------------------------ ///
+    /// ------------------------------------------- Syncronized Event & Scene changes ------------------------------------------ ///
 
 
     public override void SceneLoadRemoteDone(BoltConnection connection, IProtocolToken token)
