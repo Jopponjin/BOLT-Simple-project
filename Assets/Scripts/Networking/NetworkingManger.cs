@@ -11,6 +11,8 @@ using Photon.Bolt.Utils;
 
 /*
 NOTE:   This is a local network manger its controlls hosting, joing and some miscellaneous data.
+        This only run localy on the clients and doesnt interact alot with the server expect when joining, disconnecting or spawning a player.
+        Most methods here are self explanitory and are pretty encapsulated in terms of function.
 */
 public class NetworkingManger : GlobalEventListener
 {
