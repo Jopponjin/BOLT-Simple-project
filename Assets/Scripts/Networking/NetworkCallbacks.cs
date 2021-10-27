@@ -26,7 +26,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     /// ---------------------------------------- Events ---------------------------------------------------------------------- ///
 
-
+    // An expextion here is that spawning happend only on the server.
     public override void OnEvent(SpawnEnemy evnt)
     {
         BoltLog.Warn("SpawnEnemy EVENT called!");
@@ -83,7 +83,7 @@ public class NetworkCallbacks : GlobalEventListener
                     gameEvent.Send();
                     BoltLog.Warn(gameEvent + " was detected!");
                 }
-                //If there is more event cases that need to be synced include them in the same manner sa previous if cases.
+                //If there is more event cases that need to be synced include them in the same manner as previous if cases.
                 else if (gameEvent == RemoveHealthPickup.Create())
                 {
                     gameEvent.Send();
@@ -95,12 +95,12 @@ public class NetworkCallbacks : GlobalEventListener
 
     /// ---------------------------------------- Server Network Buffer ------------------------------------------------------- ///
 
-    //This make sure the server saves events that need to be synced to connecting players as there local scene is not up to date.
-    //In summery just a list that gets alocated when you attatch the method in event method and pass the event.
+    //This make sure the server saves events that need to be synced to connecting players, This is beacause their local scene is not up to date.
+    //In summery just a list that gets allocated when you attatch the method and pass the event.
 
     void AddEventChangeToList(Photon.Bolt.Event calledEvent)
     {
-        //Logic here is to just add a new event if there is none otherwise just overide the old with the latest one.
+        //Logic here is to just add a new event if there is none, otherwise just overide the old with the updated one.
 
         if (eventBuffer.Contains(calledEvent))
         {
