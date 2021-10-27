@@ -21,6 +21,8 @@ public class NetworkingManger : GlobalEventListener
     
     UdpSession photonSession;
 
+    public GameObject playerPrefab;
+
     public string localPlayerName;
     public string clientPlayerName;
 
@@ -75,7 +77,7 @@ public class NetworkingManger : GlobalEventListener
         if (BoltNetwork.IsClient)
         {
             Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-10, 10), 2f, UnityEngine.Random.Range(10, -10));
-            var spawnedPlayer = BoltNetwork.Instantiate(GameData.instance.playerPrefab);
+            var spawnedPlayer = BoltNetwork.Instantiate(playerPrefab);
             spawnedPlayer.transform.position = spawnPosition;
 
             spawnedPlayer.TakeControl();
@@ -92,7 +94,7 @@ public class NetworkingManger : GlobalEventListener
         else if (BoltNetwork.IsServer)
         {
             Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-10, 10), 2f, UnityEngine.Random.Range(10, -10));
-            var spawnedPlayer = BoltNetwork.Instantiate(GameData.instance.playerPrefab);
+            var spawnedPlayer = BoltNetwork.Instantiate(playerPrefab);
             spawnedPlayer.transform.position = spawnPosition;
             spawnedPlayer.TakeControl();
         }
@@ -115,12 +117,6 @@ public class NetworkingManger : GlobalEventListener
 
         BoltNetwork.Accept(endpoint, null);
 
-    }
-
-   
-    public override void SceneLoadLocalDone(string scene, IProtocolToken token)
-    {
-        GameData.instance.currentScene = SceneManager.GetSceneByName(scene);
     }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)

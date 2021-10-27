@@ -18,7 +18,7 @@ public class CoreGameState : MonoBehaviour
 
     public void ChangeLevel()
     {
-        if (GameData.instance.currentScene.name == "Level1")
+        if (SceneManager.GetActiveScene().name == "Level1")
         {
             //Load Menu scene
             SceneManager.LoadScene(0, LoadSceneMode.Single);

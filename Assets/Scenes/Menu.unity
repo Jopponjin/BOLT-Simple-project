@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuUI: {fileID: 266928932}
+  playerPrefab: {fileID: 6086704058778833637, guid: 4632d0b338ed45c4990165bd4b444138, type: 3}
   localPlayerName: 
   clientPlayerName: Player
-  latestChangeObjects: []
 --- !u!4 &63140822
 Transform:
   m_ObjectHideFlags: 0
