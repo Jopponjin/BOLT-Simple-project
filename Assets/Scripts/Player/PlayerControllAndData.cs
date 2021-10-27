@@ -56,7 +56,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         ApplyDamge(evnt.Damge);
     }
 
-    /// --------------------------------------------- Player Modfiers ----------------------------------- ///
+    /// --------------------------------------------- Player Modifiers ----------------------------------- ///
 
 
     void ColorChanged()
@@ -65,10 +65,10 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
     }
 
     /// --------------------------------------- Scene Local -------------------------------------------- ///
-
+    //Both ApplyDamge and ApplyHealth work when checking if it the owner and that the state health isn't to low or high to apply either.
     public void ApplyDamge(int damgeValue)
     {
-        BoltLog.Warn("ApplyDamge called: damge - = " + damgeValue);
+        BoltLog.Warn("ApplyDamge called: damage - = " + damgeValue);
         if (gameObject.GetComponent<BoltEntity>().IsOwner && state.Health > 0)
         {
             state.Health -= damgeValue;
@@ -85,7 +85,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
             {
                 if (state.Health + healthValue > 100)
                 {
-                    BoltLog.Warn("ApplyHealth called: Given health would be greater than max, diffrance given :" + healthValue);
+                    BoltLog.Warn("ApplyHealth called: Given health would be greater than max, difference given :" + healthValue);
                     state.Health += (100 - state.Health);
                     localHealth = state.Health;
                 }

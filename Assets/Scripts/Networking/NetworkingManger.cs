@@ -10,9 +10,9 @@ using Photon.Realtime;
 using Photon.Bolt.Utils;
 
 /*
-NOTE:   This is a local network manger its controlls hosting, joing and some miscellaneous data.
-        This only run localy on the clients and doesnt interact alot with the server expect when joining, disconnecting or spawning a player.
-        Most methods here are self explanitory and are pretty encapsulated in terms of function.
+NOTE:   This is a local network manger its controls hosting, joining and some miscellaneous data.
+        This only run locally on the clients and doesn't interact a lot with the server expect when joining, disconnecting or spawning a player.
+        Most methods here are self explanatory and are pretty encapsulated in terms of function.
 */
 public class NetworkingManger : GlobalEventListener
 {
@@ -25,9 +25,7 @@ public class NetworkingManger : GlobalEventListener
 
     public GameObject playerPrefab;
 
-    public string localPlayerName;
-    public string clientPlayerName;
-
+    // We make the class a singleton as the functions of joining and disconnecting etc. are needed during gameplay.
     private void Awake()
     {
         if (instance != null)
@@ -40,6 +38,8 @@ public class NetworkingManger : GlobalEventListener
         instance = this;
     }
 
+    // This gets called when we host a game on the main menu.
+    // Simply defines name for the session an creates a session with the selected scene if you are a server.
     public override void BoltStartDone()
     {
         if (BoltNetwork.IsServer)
@@ -50,6 +50,7 @@ public class NetworkingManger : GlobalEventListener
         }
     }
 
+    //Call to join a server, what server? it gets define further down in the script.
     public void JoinServer()
     {
         BoltLauncher.StartClient();
@@ -121,6 +122,8 @@ public class NetworkingManger : GlobalEventListener
 
     }
 
+    //This gets called after the client start their bolt instance and bolt requests a list of sessions.
+    //So this only  a list 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
         Debug.LogFormat("Session list updated: {0} total sessions", sessionList.Count);
@@ -138,7 +141,6 @@ public class NetworkingManger : GlobalEventListener
 
     void JoinServer(UdpSession photonSession)
     {
-
         BoltMatchmaking.JoinSession(photonSession, null);
     }
 
