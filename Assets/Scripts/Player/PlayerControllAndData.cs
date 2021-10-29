@@ -36,8 +36,8 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
         characterController = GetComponent<CharacterController>();
     }
 
-    // Controlls put here in order to simlefie input controll on the entitys that are controlled,
-    // there might be ways to input controll with out useing bolts own update function if thats needed.
+    // Controls put here in order to simplify input control on the entity as the would need to add additional logic.
+    // there might be ways to input control with out using bolts own update function if thats needed.
     public override void SimulateController()
     {
         moveX = Input.GetAxisRaw("Horizontal");
@@ -66,6 +66,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
 
     /// --------------------------------------- Scene Local -------------------------------------------- ///
     //Both ApplyDamge and ApplyHealth work when checking if it the owner and that the state health isn't to low or high to apply either.
+
     public void ApplyDamge(int damgeValue)
     {
         BoltLog.Warn("ApplyDamge called: damage - = " + damgeValue);
@@ -91,6 +92,7 @@ public class PlayerControllAndData : EntityEventListener<ICustomPlayer>
                 }
                 else
                 {
+                    // LocalHealth is only here for debugging reasons.
                     state.Health += healthValue;
                     localHealth = state.Health;
                 }

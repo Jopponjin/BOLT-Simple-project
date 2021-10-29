@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 /*
         
-NOTE:   This will be the session main networkcallback scrip running only on the server.
-        Handels any calls from clients to clients and take care of buffering event calls for connecting clients.
+NOTE:   This will be the session main NetworkCallbacks scrip running only on the server.
+        Its takes any calls from clients to clients and take care of buffering event calls for connecting clients.
 */
 
 [BoltGlobalBehaviour(BoltNetworkModes.Server)]
@@ -18,6 +18,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     public List<Photon.Bolt.Event> eventBuffer = new List<Photon.Bolt.Event>();
 
+    //We have to reference the prefab directly rather than through the editor as only the class will be active and cant attach any data before runtime.
     public override void BoltStartBegin()
     {
         enemyPrefab = Resources.Load("Prefabs/SphereEnemy") as GameObject;
@@ -26,7 +27,7 @@ public class NetworkCallbacks : GlobalEventListener
 
     /// ---------------------------------------- Events ---------------------------------------------------------------------- ///
 
-    // An expextion here is that spawning happend only on the server.
+    // An expectation here is that spawning happened only on the server.
     public override void OnEvent(SpawnEnemy evnt)
     {
         BoltLog.Warn("SpawnEnemy EVENT called!");
@@ -66,14 +67,15 @@ public class NetworkCallbacks : GlobalEventListener
 
     public override void OnEvent(HealthPickupEvent evnt)
     {
-        //WhateverEvent.Post() is just a simplefied version of.Create() -
-        //and given that RemoveHealthPickup event doesn't need anything passed on can be called right away.
+        // WhateverEvent.Post() is just a simplefied version of.Create() -
+        // and given that RemoveHealthPickup event doesn't need anything passed on can be called right away.
         RemoveHealthPickup.Post();
     }
 
     /// ------------------------------------------- Synchronized Event & Scene changes ------------------------------------------ ///
 
-
+    // This get called when a connection a done loading the scene the session uses.
+    // This get used as of now to apply all the stored events that has happened before the client joined.
     public override void SceneLoadRemoteDone(BoltConnection connection, IProtocolToken token)
     {
 
